@@ -2,7 +2,17 @@ package service;
 
 import model.Movie;
 
+import java.util.List;
+
 public interface MovieService {
-    Movie addMovie(Movie movie);
+    void addMovie(Movie movie);
+
+    void updateMovie(Movie movie);
+
+    void deleteMovie(Long id);
+
+    Movie getMovie(Long id);
+
+    List<Movie> listMovies();
 
 }

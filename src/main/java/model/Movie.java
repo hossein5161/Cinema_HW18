@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,11 +19,14 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(nullable = false)
     private String title;
+    private String description;
     private String genre;
-    private int duration;
+    private String releaseDate;
+    private int rating;
+    @Lob
+    private String poster;
 
-    @ManyToMany(mappedBy = "watchlist")
-    private Set<User> users = new HashSet<>();
+
+
 }

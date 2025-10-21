@@ -17,16 +17,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(unique = true, nullable = false)
     private String username;
-    @Column(unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
-    private String password;
+    private String passwordHash;
 
-    @ManyToMany
-    @JoinTable(name="user_movie_watchlist"
-            ,joinColumns = @JoinColumn(name="user_id")
-            ,inverseJoinColumns = @JoinColumn(name="movie_id"))
-    private Set<Movie> watchlist = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
+    public User(String username, String email, String passwordHash, Role role) {
+        this.username = username;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
 }

@@ -3,6 +3,7 @@ package repository.impl;
 import jakarta.persistence.EntityManager;
 import model.Movie;
 import model.User;
+import model.Watchlist;
 import repository.WatchlistRepository;
 import util.Database_Connection;
 
@@ -12,51 +13,89 @@ import java.util.List;
 public class WatchlistRepositoryImpl implements WatchlistRepository {
 
     @Override
-    public void addMovieToUser(Long userId, Long movieId) {
-       EntityManager em = Database_Connection.getEntityManager();
-       try{
-           em.getTransaction().begin();
-           User user = em.find(User.class, userId);
-           Movie movie = em.find(Movie.class, movieId);
-           if(user!=null && movie!=null){
-               user.getWatchlist().add(movie);
-               em.merge(user);
-           }
-           em.getTransaction().commit();
-       }catch(Exception e){
-           em.getTransaction().rollback();
-       }finally {
-           em.close();
-       }
-    }
+    public void addToWatchlist(User user, Movie movie) {
+        EntityManager em = Database_Connection.getEntityManager();
+        try {
+            em.getTransaction().begin();
 
-    @Override
-    public List<Movie> getWatchlist(Long userId) {
-        try (EntityManager em = Database_Connection.getEntityManager()) {
-            User user = em.find(User.class, userId);
-            if (user != null) {
-                return new ArrayList<>(user.getWatchlist());
+            List<Watchlist> existingList = em.createQuery(
+                            "FROM Watchlist w WHERE w.user = :user AND w.movie = :movie", Watchlist.class)
+                    .setParameter("user", user)
+                    .setParameter("movie", movie)
+                    .getResultList();
+
+            if (existingList.isEmpty()) {
+                em.persist(new Watchlist(user, movie));
             }
-            return null;
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            em.close();
         }
     }
 
     @Override
-    public void removeFromWatchlist(Long userId, Long movieId) {
+    public void removeFromWatchlist(User user, Movie movie) {
         EntityManager em = Database_Connection.getEntityManager();
-        try{
+        try {
             em.getTransaction().begin();
-            User user = em.find(User.class, userId);
-            Movie movie = em.find(Movie.class, movieId);
-            if(user!=null && movie!=null){
-                user.getWatchlist().remove(movie);
-                em.merge(user);
+
+            List<Watchlist> wlList = em.createQuery(
+                            "FROM Watchlist w WHERE w.user = :user AND w.movie = :movie", Watchlist.class)
+                    .setParameter("user", user)
+                    .setParameter("movie", movie)
+                    .getResultList();
+
+            if (!wlList.isEmpty()) {
+                em.remove(wlList.get(0));
             }
+
             em.getTransaction().commit();
-        }catch(Exception e){
-            em.getTransaction().rollback();
-        }finally {
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
             em.close();
+        }
+    }
+
+    @Override
+    public List<Movie> findWatchlistForUser(User user) {
+        try (EntityManager em = Database_Connection.getEntityManager()) {
+            return em.createQuery(
+                            "SELECT w.movie FROM Watchlist w WHERE w.user = :user", Movie.class)
+                    .setParameter("user", user)
+                    .getResultList();
+        }
+    }
+
+    @Override
+    public long countWatchlistForUser(User user) {
+        try (EntityManager em = Database_Connection.getEntityManager()) {
+            return em.createQuery(
+                            "SELECT COUNT(w) FROM Watchlist w WHERE w.user = :user", Long.class)
+                    .setParameter("user", user)
+                    .getSingleResult();
+        }
+    }
+
+    @Override
+    public List<Movie> getWatchlist(User user) {
+        if (user == null) return new ArrayList<>();
+
+        try (EntityManager em = Database_Connection.getEntityManager()) {
+            return em.createQuery(
+                            "SELECT w.movie FROM Watchlist w WHERE w.user = :user", Movie.class)
+                    .setParameter("user", user)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }
