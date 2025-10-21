@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Movies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .poster {
+            height: 260px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .card-custom { transition: transform .2s; }
+        .card-custom:hover { transform: translateY(-4px); }
+        .filters .btn { margin-right: .25rem; }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">Movies</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbars">
+            <form class="d-flex ms-auto" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search titles" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<main class="container my-4">
+
+    <div class="row mb-3">
+        <div class="col-12 filters">
+            <span class="me-2 fw-semibold">Filters:</span>
+            <button class="btn btn-sm btn-outline-primary" type="button">Action</button>
+            <button class="btn btn-sm btn-outline-primary" type="button">Drama</button>
+            <button class="btn btn-sm btn-outline-primary" type="button">Comedy</button>
+            <button class="btn btn-sm btn-outline-secondary" type="button" id="clearFilters">Clear</button>
+        </div>
+    </div>
+
+
+    <div class="row g-4" id="moviesGrid">
+
+        <div class="col-6 col-sm-4 col-md-3">
+            <div class="card card-custom h-100">
+                <img src="https://via.placeholder.com/300x420?text=Poster" class="card-img-top poster" alt="Movie Poster">
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title mb-1">Movie Title</h6>
+                    <p class="card-text mb-2 text-muted small">Year • Genre</p>
+                    <div class="mt-auto">
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsLabel">Movie Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <img src="https://via.placeholder.com/240x320" class="img-fluid" alt="Poster">
+                    </div>
+                    <div class="col-md-8">
+                        <h4 id="detail-title" class="mb-1">Title</h4>
+                        <p id="detail-year" class="mb-1 text-muted">Year</p>
+                        <p id="detail-genre" class="mb-1">Genre</p>
+                        <p id="detail-description" class="mb-0">
+                            This is a short description of the movie. Replace with real content.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Watch Trailer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Watchlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .poster { height: 180px; object-fit: cover; width: 100%; }
+        .card-item { transition: transform .2s; }
+        .card-item:hover { transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">Watchlist</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbars"
+                aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbars">
+            <form class="d-flex ms-auto" role="search" action="#" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search titles" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<main class="container my-4">
+    <div class="row mb-3">
+        <div class="col-12 d-flex flex-wrap align-items-center gap-2">
+            <span class="fw-semibold me-2">Filter:</span>
+            <button class="btn btn-sm btn-outline-primary" type="button">All</button>
+            <button class="btn btn-sm btn-outline-primary" type="button">Movies</button>
+            <button class="btn btn-sm btn-outline-primary" type="button">TV Shows</button>
+            <button class="btn btn-sm btn-outline-secondary" type="button" id="clearWatchlist">Clear</button>
+        </div>
+    </div>
+
+    <div class="row g-4" id="watchlistGrid">
+        <div class="col-6 col-sm-4 col-md-3">
+            <div class="card card-item h-100">
+                <img src="https://via.placeholder.com/300x450?text=Poster" class="card-img-top poster" alt="Poster">
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title mb-1">Movie Title</h6>
+                    <p class="card-text mb-2 text-muted small">2024 • Drama • 8.2</p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
+                        <button class="btn btn-sm btn-outline-danger" type="button">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsLabel">Title Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <img src="https://via.placeholder.com/240x340" class="img-fluid" alt="Poster">
+                    </div>
+                    <div class="col-md-8">
+                        <h4 id="detail-title" class="mb-1">Title</h4>
+                        <p id="detail-info" class="mb-1 text-muted">Year • Genre • Rating</p>
+                        <p id="detail-desc" class="mb-0">Description of the movie or show goes here. Replace with real content.</p>
+                        14:03
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Play</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
