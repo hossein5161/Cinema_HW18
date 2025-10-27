@@ -24,6 +24,7 @@ public class Movie {
     private String genre;
     private String releaseDate;
     private int rating;
+
     @Lob
     private String poster;
 

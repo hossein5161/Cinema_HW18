@@ -1,4 +1,5 @@
 package servlet;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,16 +9,15 @@ import model.Role;
 import model.User;
 import service.UserService;
 import service.impl.UserServiceImpl;
-import java.io.IOException;
-import java.io.PrintWriter;
 
+import java.io.IOException;
 
 public class UserLoginServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/pages/login.html").forward(req, resp);
+        req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -25,24 +25,19 @@ public class UserLoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-       User user = userService.login(username, password);
+        User user = userService.login(username, password);
         if (user != null) {
             HttpSession session = req.getSession(true);
             session.setAttribute("user", user);
-            session.setMaxInactiveInterval(30*60);
+            session.setMaxInactiveInterval(30 * 60);
             if (user.getRole() == Role.ADMIN) {
                 resp.sendRedirect("/admin/dashboard");
             } else {
                 resp.sendRedirect("/user/dashboard");
             }
-            return;
+        } else {
+            req.setAttribute("errorMessage", "Invalid credentials. Please try again.");
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-        writer.println("<html><body>");
-        writer.println("<h3>Invalid credentials.Please try again</h3>");
-        writer.println("<a href=/login>Back to Login</a>");
-        writer.println("</body></html>");
-
     }
 }

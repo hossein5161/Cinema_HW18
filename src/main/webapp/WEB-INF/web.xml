@@ -24,6 +24,18 @@
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>servlet.ProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MovieDetailsServlet</servlet-name>
+        <servlet-class>servlet.MovieDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovieDetailsServlet</servlet-name>
+        <url-pattern>/movies/details</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MovieDetailsServlet</servlet-name>
+        <url-pattern>/movies/addComment</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
@@ -51,6 +63,7 @@
         <servlet-name>AdminMoviesServlet</servlet-name>
         <url-pattern>/movies/*</url-pattern>
     </servlet-mapping>
+
 <!--    <servlet-mapping>-->
 <!--        <servlet-name>AdminMoviesServlet</servlet-name>-->
 <!--        <url-pattern>/movies/delete</url-pattern>-->
