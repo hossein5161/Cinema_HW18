@@ -29,10 +29,15 @@
         </div>
     </nav>
 
+    <form action="/user/dashboard" method="GET" class="mb-4">
+        <input type="text" name="search" class="form-control" placeholder="Search by title or genre" value="<%= request.getAttribute("searchQuery") != null ? request.getAttribute("searchQuery") : "" %>">
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
+
     <div class="row g-4">
         <%
             List<Movie> movies = (List<Movie>) request.getAttribute("movies");
-            if (movies != null) {
+            if (movies != null && !movies.isEmpty()) {
                 for (Movie movie : movies) {
         %>
         <div class="col-6 col-sm-4 col-md-3">
@@ -40,7 +45,7 @@
                 <img src="data:image/jpeg;base64,<%= movie.getPoster() %>" class="card-img-top poster" alt="Movie Poster">
                 <div class="card-body d-flex flex-column">
                     <h6 class="card-title mb-1"><%= movie.getTitle() %></h6>
-                    <p class="card-text mb-2 text-muted small"><%= movie.getReleaseDate() %> • <%= movie.getGenre() %> • <%= movie.getRating() %></p>
+                    <p class="card-text mb-2 text-muted small"><%= movie.getReleaseDate() %> • <%= movie.getGenre() %> </p>
                     <form method="POST" action="/user/watchlist/action" class="mt-auto">
                         <input type="hidden" name="movieId" value="<%= movie.getId() %>">
                         <input type="hidden" name="type" value="add">
@@ -51,7 +56,11 @@
             </div>
         </div>
         <%
-                }
+            }
+        } else {
+        %>
+        <p>No movies found based on your search.</p>
+        <%
             }
         %>
     </div>

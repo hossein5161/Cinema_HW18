@@ -17,12 +17,22 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getCommentsByMovie(Movie movie) {
-        return commentRepository.getCommentsByMovie(movie);
+    public List<Comment> getCommentsByMovie(Long movieId) {
+        return commentRepository.getCommentsByMovie(movieId);
     }
 
     @Override
     public void deleteComment(Long commentId) {
         commentRepository.deleteComment(commentId);
+    }
+
+    @Override
+    public double getAverageRating(Long movieId) {
+        return commentRepository.getAverageRating(movieId);
+    }
+
+    @Override
+    public void updateComment(Comment comment) {
+        commentRepository.updateComment(comment);
     }
 }

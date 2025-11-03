@@ -8,6 +8,9 @@
 <body>
 <div class="container">
     <h2 class="mb-4">Profile</h2>
+    <div class="ms-auto d-flex gap-2">
+        <a class="btn btn-outline-primary" href="/user/dashboard">Dashboard</a>
+    </div>
     <form method="POST" action="/user/profile">
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="username">Username</label>

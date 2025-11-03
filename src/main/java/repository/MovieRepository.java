@@ -14,4 +14,9 @@ public interface MovieRepository {
     Movie getMovie(Long id);
 
     List<Movie> listMovies();
+
+    double getAverageRating(Long movieId);
+
+    List<Movie> searchMovies(String query);
+
 }

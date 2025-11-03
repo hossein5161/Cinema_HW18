@@ -78,8 +78,7 @@ public class AdminMovieServlet extends HttpServlet {
             movie.setDescription(req.getParameter("description"));
             movie.setReleaseDate(req.getParameter("releaseDate"));
             movie.setGenre(req.getParameter("genre"));
-            movie.setRating(Integer.parseInt(req.getParameter("rating")));
-
+//            movie.setRating(Integer.parseInt(req.getParameter("rating")));
             Part posterPart = req.getPart("poster");
             if (posterPart != null && posterPart.getSize() > 0) {
                 byte[] posterBytes = new byte[(int) posterPart.getSize()];
@@ -100,7 +99,7 @@ public class AdminMovieServlet extends HttpServlet {
             movie.setDescription(req.getParameter("description"));
             movie.setReleaseDate(req.getParameter("releaseDate"));
             movie.setGenre(req.getParameter("genre"));
-            movie.setRating(Integer.parseInt(req.getParameter("rating")));
+//            movie.setRating(Integer.parseInt(req.getParameter("rating")));
 
             Part posterPart = req.getPart("poster");
             if (posterPart != null && posterPart.getSize() > 0) {

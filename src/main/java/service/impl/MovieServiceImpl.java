@@ -40,4 +40,14 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> listMovies() {
         return movieRepository.listMovies();
     }
+
+    @Override
+    public double getAverageRating(Long movieId) {
+        return movieRepository.getAverageRating(movieId);
+    }
+
+    @Override
+    public List<Movie> searchMovies(String query) {
+        return movieRepository.searchMovies(query);
+    }
 }

@@ -1,8 +1,5 @@
 package repository.impl;
-
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import model.Movie;
 import repository.MovieRepository;
@@ -19,7 +16,6 @@ public class MovieRepositoryImpl implements MovieRepository {
             em.persist(movie);
             em.getTransaction().commit();
             System.out.println("Movie added successfully!");
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to add movie: " + e.getMessage());
@@ -66,6 +62,27 @@ public class MovieRepositoryImpl implements MovieRepository {
         try (EntityManager em = Database_Connection.getEntityManager()) {
             TypedQuery<Movie> query = em.createQuery("FROM Movie", Movie.class);
             return query.getResultList();
+        }
+    }
+
+    @Override
+    public double getAverageRating(Long movieId) {
+        try (EntityManager em = Database_Connection.getEntityManager()) {
+            String query = "SELECT AVG(c.rating) FROM Comment c WHERE c.movie.id = :movieId";
+            Double averageRating = (Double) em.createQuery(query)
+                    .setParameter("movieId", movieId)
+                    .getSingleResult();
+            return averageRating != null ? averageRating : 0;
+        }
+    }
+
+    @Override
+    public List<Movie> searchMovies(String query) {
+        try (EntityManager em = Database_Connection.getEntityManager()) {
+            String jpql = "SELECT m FROM Movie m WHERE m.title LIKE :query OR m.genre LIKE :query";
+            TypedQuery<Movie> queryObj = em.createQuery(jpql, Movie.class);
+            queryObj.setParameter("query", "%" + query + "%");
+            return queryObj.getResultList();
         }
     }
 }

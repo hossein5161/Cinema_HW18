@@ -1,6 +1,6 @@
 <%@ page import="model.Movie" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -35,7 +35,7 @@
                 <img src="data:image/jpeg;base64,<%= movie.getPoster() %>" class="card-img-top poster" alt="Movie Poster">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title mb-1"><%= movie.getTitle() %></h5>
-                    <p class="card-text text-muted small"><%= movie.getReleaseDate() %> • <%= movie.getGenre() %> • <%= movie.getRating() %></p>
+                    <p class="card-text text-muted small"><%= movie.getReleaseDate() %> • <%= movie.getGenre() %> </p>
                     <div class="d-flex justify-content-between">
 
                         <a href="/movies?action=edit&id=<%= movie.getId() %>" class="btn btn-outline-secondary btn-sm">Edit</a>

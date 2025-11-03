@@ -16,6 +16,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String text;
+    private int rating;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

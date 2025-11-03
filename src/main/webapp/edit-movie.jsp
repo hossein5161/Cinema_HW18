@@ -36,10 +36,10 @@
             <input type="text" class="form-control" id="genre" name="genre" value="<%= movie.getGenre() %>" required>
         </div>
 
-        <div class="mb-3">
-            <label for="rating" class="form-label">Rating</label>
-            <input type="number" class="form-control" id="rating" name="rating" value="<%= movie.getRating() %>" required>
-        </div>
+<%--        <div class="mb-3">--%>
+<%--            <label for="rating" class="form-label">Rating</label>--%>
+<%--            <input type="number" class="form-control" id="rating" name="rating" value="<%= movie.getRating() %>" required>--%>
+<%--        </div>--%>
 
         <div class="mb-3">
             <label for="poster" class="form-label">Poster</label>

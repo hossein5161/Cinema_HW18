@@ -52,7 +52,7 @@ public class ProfileServlet extends HttpServlet {
         try {
             userService.update(user);
             session.setAttribute("user", user);
-            resp.sendRedirect("/user/profile?message=Profile updated successfully!");
+            resp.sendRedirect("/login");
         } catch (Exception e) {
             e.printStackTrace();
             resp.sendRedirect("/user/profile?message=Error updating profile!");

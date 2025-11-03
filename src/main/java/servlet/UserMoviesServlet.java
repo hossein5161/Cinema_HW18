@@ -23,13 +23,19 @@ public class UserMoviesServlet extends HttpServlet {
             resp.sendRedirect("/login");
             return;
         }
-
         User user = (User) session.getAttribute("user");
         String pathInfo = req.getPathInfo();
-
+        String searchQuery = req.getParameter("search");
         if ("/dashboard".equals(pathInfo) || pathInfo == null) {
-            List<Movie> movies = movieService.listMovies();
+            List<Movie> movies;
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                movies = movieService.searchMovies(searchQuery);
+            } else {
+                movies = movieService.listMovies();
+            }
+
             req.setAttribute("movies", movies);
+            req.setAttribute("searchQuery", searchQuery);
             req.getRequestDispatcher("/user-dashboard.jsp").forward(req, resp);
         } else if ("/watchlist".equals(pathInfo)) {
             List<Movie> watchlist = watchlistService.getWatchlist(user);

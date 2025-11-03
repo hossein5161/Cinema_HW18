@@ -35,7 +35,7 @@
                 <img src="data:image/jpeg;base64,<%= movie.getPoster() %>" class="card-img-top poster" alt="Movie Poster">
                 <div class="card-body d-flex flex-column">
                     <h6 class="card-title mb-1"><%= movie.getTitle() %></h6>
-                    <p class="card-text mb-2 text-muted small"><%= movie.getReleaseDate() %> • <%= movie.getGenre() %> • <%= movie.getRating() %></p>
+                    <p class="card-text mb-2 text-muted small"><%= movie.getReleaseDate() %> • <%= movie.getGenre() %> </p>
                     <form method="POST" action="/user/watchlist/action" class="mt-auto">
                         <input type="hidden" name="movieId" value="<%= movie.getId() %>">
                         <input type="hidden" name="type" value="remove">

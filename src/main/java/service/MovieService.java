@@ -15,4 +15,10 @@ public interface MovieService {
 
     List<Movie> listMovies();
 
+    double getAverageRating(Long movieId);
+
+    List<Movie> searchMovies(String query);
+
+
+
 }
